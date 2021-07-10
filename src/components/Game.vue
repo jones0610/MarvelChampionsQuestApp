@@ -13,6 +13,16 @@
 				</li>
 			</ul>
 		</div>
+		<div class="challenges" v-if="game.enhancements.length">
+			<h3>Enhancements</h3>
+			<p class="empty-message" v-if="game.enhancements.length == 0">No additional enhancements.</p>
+			<div v-else>
+				<div v-for="(enh, idx) in game.enhancements" :key="idx" class="challenge">
+					<h5>{{enh.name}}</h5>
+					<p v-html="enh.description()"></p>
+				</div>
+			</div>
+		</div>
 		<div class="challenges" v-if="game.challenges.length">
 			<h3>Challenges</h3>
 			<p class="empty-message" v-if="game.challenges.length == 0">No additional challenges.</p>

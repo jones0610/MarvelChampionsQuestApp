@@ -4,6 +4,8 @@ import {getRandomInt, percentChance, randomItem, randomItemsExcluding} from "@/l
 import {Villain} from "@/types/villain";
 import {EncounterSetsMap, EncounterSetsList, Expert} from "@/consts/encountersets";
 import {randomChallenge} from "@/consts/challenges";
+import {EnhancementsList} from "@/consts/enhancements";
+import {Enhancement} from "@/types/enhancement";
 import {EncounterSet} from "@/types/encounterset";
 import {GameOption} from "@/types/gameoption";
 import {UpgradeCategoriesList} from "@/consts/upgrades";
@@ -40,6 +42,53 @@ export const getExpansionsEncSets = (expansions: Expansion[]) : EncounterSet[] =
 		}
 		return false
 	})
+}
+
+export const getFilteredEnhancements = (expansions: Expansion[], villain: Villain, encountersets: EncounterSet[], usedEnhancements: Enhancement[]) : Enhancement[] => {
+	let newEnhList = EnhancementsList.filter((enhancement : Enhancement) => {
+		if (enhancement.requires == null) {
+			return true
+		}
+		for (var i = 0; i < expansions.length; i++) {
+			if (expansions[i] === enhancement.requires) {
+				return true
+			}
+		}
+		return false
+	})
+	newEnhList = newEnhList.filter((enhancement: Enhancement) => {
+		if (!enhancement.requiresVillain) {
+			return true
+		}
+		for (var i = 0; i < enhancement.requiresVillain.length; i++) {
+			if (enhancement.requiresVillain[i] == villain) {
+				return true
+			}
+		}
+		return false
+	})
+	newEnhList = newEnhList.filter((enhancement: Enhancement) => {
+		if (!enhancement.requiresEncounterSet) {
+			return true
+		}
+		for (var i = 0; i < enhancement.requiresEncounterSet.length; i++) {
+			for (var j = 0; j < encountersets.length; j++) {
+				if (enhancement.requiresEncounterSet[i] == encountersets[j]) {
+					return true
+				}
+			}
+		}
+		return false
+	})
+	newEnhList = newEnhList.filter((enhancement: Enhancement) => {
+		for (var i = 0; i < usedEnhancements.length; i++) {
+			if (usedEnhancements[i] == enhancement) {
+				return false
+			}
+		}
+		return true
+	})
+	return newEnhList
 }
 
 export const generateTargetGame = (minDifficulty: number, maxDifficulty: number, expansions: Expansion[]) : Game => {
@@ -120,7 +169,8 @@ export const generateGame = (villain: Villain, expansions: Expansion[]) : Game =
 		difficulty: 0,
 		challenges: [],
 		heroLevel: 0,
-		id: ''
+		id: '',
+		enhancements: [],
 	}
 
 	/*// 10% chance for hero level 1
@@ -138,6 +188,20 @@ export const generateGame = (villain: Villain, expansions: Expansion[]) : Game =
 		const challenge = randomChallenge()
 		game.challenges.push(challenge)
 		challengePercent -= 5
+	}
+
+	// game.enhancements = [randomEnhancement()]
+	challengePercent = 70
+	let newEnhancements = []
+
+
+	while (percentChance(challengePercent)) {
+		newEnhancements = getFilteredEnhancements(expansions,villain,sets,game.enhancements)
+		if (newEnhancements.length > 0) {
+			const enhancement = randomItem(newEnhancements)
+			game.enhancements.push(enhancement)
+			challengePercent -= 30
+		}
 	}
 
 	game.difficulty = getGameDifficulty(game)
@@ -191,6 +255,10 @@ export const getGameDifficulty = (game: Game) : number => {
 		diff += cha.difficulty
 	})
 
+	game.enhancements.forEach((enh) => {
+		diff += enh.difficulty
+	})
+
 	diff *= multiplier
 
 	diff += diff * (game.heroLevel * 1.25) // 25% harder for each hero level
@@ -202,6 +270,7 @@ export const getGameId = (game: Game) : string => {
 	return [
 		game.villain.name,
 		game.encounterSets.map(ec => ec.name).join('-'),
-		game.challenges.map(c => c.name).join('-')
+		game.challenges.map(c => c.name).join('-'),
+		game.enhancements.map(enh => enh.name).join('-'),
 	].join('_')
 }

@@ -1,16 +1,16 @@
 import {Expansion} from "@/types/expansion";
 import {Villain} from "@/types/villain";
-
+import {EncounterSet} from "@/types/encounterset";
 
 export type AttachmentCard = {
 	card: string,
 	requires: Expansion,
 	name: string
 	article?: string
-	requiresVillain?: Villain
-	attached?: boolean
-	copies?: number
-	exhausted?: boolean
+	requiresVillain?: Villain[]
+	requiresEncounterSet?: EncounterSet[]
+	conflictingVillains?: Villain[]
+	difficulty: number
 }
 
 export type SideSchemeCard = {
@@ -18,11 +18,22 @@ export type SideSchemeCard = {
 	requires: Expansion,
 	name: string
 	article?: string
-	requiresVillain?: Villain
-	copies?: number
-	exhausted?: boolean
+	requiresVillain?: Villain[]
+	conflictingVillains?: Villain[]
+	requiresEncounterSet?: EncounterSet[]
+	difficulty: number
 }
 
+export interface Enhancement {
+	name: string
+	card: string
+	description: () => any
+	requires: Expansion
+	requiresVillain?: Villain[]
+	conflictingVillains?: Villain[]
+	requiresEncounterSet?: EncounterSet[]
+	difficulty: number
+}
 
 //
 //
