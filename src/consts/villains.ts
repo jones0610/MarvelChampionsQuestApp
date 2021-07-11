@@ -79,9 +79,18 @@ export const Ultron3 : Villain = {
 }
 
 // VILLAIN PACKS
-export const WreckingCrew : Villain = {
-	name: 'Wrecking Crew',
-	key: 'WreckingCrew',
+export const WreckingCrewA : Villain = {
+	name: 'Wrecking Crew (A)',
+	key: 'WreckingCrewA',
+	difficulty: DF_BASE,
+	sets: [Enc.WreckingCrew.name],
+	noExtraSets: true,
+	requires: Exp.WreckingCrew
+}
+
+export const WreckingCrewB : Villain = {
+	name: 'Wrecking Crew (B)',
+	key: 'WreckingCrewB',
 	difficulty: DF_BASE,
 	sets: [Enc.WreckingCrew.name],
 	noExtraSets: true,
@@ -136,9 +145,17 @@ export const NormanOsborn3 : Villain = {
 	requires: Exp.GreenGoblin
 }
 
-export const Kang : Villain = {
-	name: 'The Once and Future Kang',
-	key: 'Kang',
+export const KangA : Villain = {
+	name: 'The Once and Future Kang (Standard)',
+	key: 'KangA',
+	difficulty: DF_BASE,
+	sets: [Enc.Kang.name],
+	requires: Exp.Kang
+}
+
+export const KangB : Villain = {
+	name: 'The Once and Future Kang (Expert)',
+	key: 'KangB',
 	difficulty: DF_BASE,
 	sets: [Enc.Kang.name],
 	requires: Exp.Kang
@@ -388,14 +405,16 @@ export const VillainsMap : Record<string, Villain> = {
 	[Ultron1.name]: Ultron1,
 	[Ultron2.name]: Ultron2,
 	[Ultron3.name]: Ultron3,
-	[WreckingCrew.name]: WreckingCrew,
+	[WreckingCrewA.name]: WreckingCrewA,
+	[WreckingCrewB.name]: WreckingCrewB,
 	[GreenGoblin1.name]: GreenGoblin1,
 	[GreenGoblin2.name]: GreenGoblin2,
 	[GreenGoblin3.name]: GreenGoblin3,
 	[NormanOsborn1.name]: NormanOsborn1,
 	[NormanOsborn2.name]: NormanOsborn2,
 	[NormanOsborn3.name]: NormanOsborn3,
-	[Kang.name]: Kang,
+	[KangA.name]: KangA,
+	[KangB.name]: KangB,
 	[Crossbones1.name]: Crossbones1,
 	[Crossbones2.name]: Crossbones2,
 	[Crossbones3.name]: Crossbones3,

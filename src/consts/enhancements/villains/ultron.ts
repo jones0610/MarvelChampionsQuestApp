@@ -1,31 +1,30 @@
 import {CoreSet} from "@/consts/expansions";
 import {generateAttachmentCard, generateSideSchemeCard} from "@/lib/enhancements";
-import {Ultron1,Ultron2,Ultron3} from "@/consts/villains"
-
-
+import {Ultron} from "@/consts/encountersets"
 
 export const ProgramTransmitter = generateAttachmentCard({
 	name: 'Program Transmitter',
 	card: 'Program Transmitter',
 	requires: CoreSet,
-	requiresVillain: [Ultron1,Ultron2,Ultron3],
-  difficulty: 3
+	requiresEncounterSet: Ultron,
+  difficulty: 3,
+	attaches: 'Ultron'
 })
 
 export const UpgradedDrones = generateAttachmentCard({
 	name: 'Upgraded Drones',
 	card: 'Upgraded Drones',
 	requires: CoreSet,
-	requiresVillain: [Ultron1,Ultron2,Ultron3],
-  difficulty: 3
-	// Attaches to environment
+	requiresEncounterSet: Ultron,
+  difficulty: 3,
+	attaches: 'the Ultron Drones environment'
 })
 
 export const DroneFactory = generateSideSchemeCard({
 	name: "Drone Factory",
 	card: "Drone Factory",
 	requires: CoreSet,
-	requiresVillain: [Ultron1,Ultron2,Ultron3],
+	requiresEncounterSet: Ultron,
   difficulty: 3
 })
 
@@ -33,7 +32,7 @@ export const InvasiveAI = generateSideSchemeCard({
 	name: 'Invasive AI',
 	card: 'Invasive AI',
 	requires: CoreSet,
-	requiresVillain: [Ultron1,Ultron2,Ultron3],
+	requiresEncounterSet: Ultron,
   difficulty: 3,
 })
 
@@ -41,7 +40,7 @@ export const UltronsImperative = generateSideSchemeCard({
 	name: "Ultron's Imperative",
 	card: "Ultron's Imperative",
 	requires: CoreSet,
-	requiresVillain: [Ultron1,Ultron2,Ultron3],
+	requiresEncounterSet: Ultron,
   difficulty: 3,
 })
 

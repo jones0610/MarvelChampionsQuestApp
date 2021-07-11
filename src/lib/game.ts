@@ -57,25 +57,12 @@ export const getFilteredEnhancements = (expansions: Expansion[], villain: Villai
 		return false
 	})
 	newEnhList = newEnhList.filter((enhancement: Enhancement) => {
-		if (!enhancement.requiresVillain) {
-			return true
-		}
-		for (var i = 0; i < enhancement.requiresVillain.length; i++) {
-			if (enhancement.requiresVillain[i] == villain) {
-				return true
-			}
-		}
-		return false
-	})
-	newEnhList = newEnhList.filter((enhancement: Enhancement) => {
 		if (!enhancement.requiresEncounterSet) {
 			return true
 		}
-		for (var i = 0; i < enhancement.requiresEncounterSet.length; i++) {
-			for (var j = 0; j < encountersets.length; j++) {
-				if (enhancement.requiresEncounterSet[i] == encountersets[j]) {
-					return true
-				}
+		for (var i = 0; i < encountersets.length; i++) {
+			if (enhancement.requiresEncounterSet == encountersets[i]) {
+				return true
 			}
 		}
 		return false

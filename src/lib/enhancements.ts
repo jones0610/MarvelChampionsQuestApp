@@ -1,16 +1,14 @@
 import {Enhancement, AttachmentCard, SideSchemeCard} from "@/types/enhancement";
 
-
 export function generateAttachmentCard (def: AttachmentCard) : Enhancement {
 	const attachment = {
 		name: def.name,
 		card: def.card,
 		description () {
-			let msg = `<strong>Setup:</strong> Put <strong>${def.card}</strong> into play attached to the villain.`
+			let msg = `<strong>Setup:</strong> Put <strong>${def.card}</strong> into play attached to ${def.attaches}.`
 			return msg
 		},
 		requires: def.requires,
-		requiresVillain: def.requiresVillain,
 		conflictingVillains: def.conflictingVillains,
     difficulty: def.difficulty,
 		requiresEncounterSet: def.requiresEncounterSet
@@ -27,7 +25,6 @@ export function generateSideSchemeCard (def: SideSchemeCard) : Enhancement {
 			return msg
 		},
 		requires: def.requires,
-		requiresVillain: def.requiresVillain,
 		conflictingVillains: def.conflictingVillains,
     difficulty: def.difficulty,
 		requiresEncounterSet: def.requiresEncounterSet

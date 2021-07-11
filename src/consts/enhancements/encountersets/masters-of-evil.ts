@@ -1,15 +1,15 @@
 import {CoreSet} from "@/consts/expansions";
 import {generateAttachmentCard, generateSideSchemeCard} from "@/lib/enhancements";
-import {BombScare} from "@/consts/encountersets"
+import {MastersOfEvil} from "@/consts/encountersets"
 
-export const Scare = generateSideSchemeCard({
-	name: "Bomb Scare",
-	card: "Bomb Scare",
+export const Masters = generateSideSchemeCard({
+	name: "Masters of Evil",
+	card: "Masters of Evil",
 	requires: CoreSet,
   difficulty: 3,
-	requiresEncounterSet: BombScare
+	requiresEncounterSet: MastersOfEvil
 })
 
 export const Enhancements = [
-  Scare
+  Masters
 ]
