@@ -17,4 +17,5 @@ export type Run = {
 	upgradeOptions: Record<number, Upgrade[]>
 	upgradeSelections: Record<number, string>
 	gameOptions: GameOption[]
+	difficulty: number
 }

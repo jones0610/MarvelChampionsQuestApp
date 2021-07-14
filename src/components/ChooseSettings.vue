@@ -25,7 +25,10 @@
     <div class="players">
       <input type="number" v-model="numGames" />
     </div>
-
+    <h2 class="banger green">Difficulty</h2>
+    <div class="players">
+      <input type="number" v-model="difficulty" />
+    </div>
     <button class="big-button" @click="startRun">
       Start Run
     </button>
@@ -47,7 +50,8 @@ import {mapActions, mapGetters, mapState} from "vuex";
 type SettingsData = {
   allExpansions: Expansion[],
   playerSelections: string[],
-  numGames: number
+  numGames: number,
+  difficulty: number
 }
 
 export default Vue.extend({
@@ -56,7 +60,8 @@ export default Vue.extend({
     return {
       allExpansions: ExpansionsList,
       numGames: 4,
-      playerSelections: ['', '', '', ''],
+      difficulty: 0,
+      playerSelections: ['', ''],
     }
   },
   async created () {
@@ -78,6 +83,17 @@ export default Vue.extend({
 
       if (numStored && !isNaN(numStored)) {
         this.numGames = numStored
+      }
+    }
+
+    this.difficulty = 5
+    const numStoredStr2 = window.localStorage.getItem('difficulty')
+
+    if (numStoredStr2) {
+      const numStored2 = parseInt(numStoredStr2)
+
+      if (numStored2 && !isNaN(numStored2)) {
+        this.difficulty = numStored2
       }
     }
 
@@ -112,6 +128,7 @@ export default Vue.extend({
       try {
         window.localStorage.setItem('expansions', this.expansionNames.join(','))
         window.localStorage.setItem('numGames', this.numGames.toString())
+        window.localStorage.setItem('difficulty', this.difficulty.toString())
       } catch (ex) {
         console.log(ex)
       }
@@ -127,7 +144,8 @@ export default Vue.extend({
 
       await this.$store.dispatch('createPlayers', this.playerSelections)
       await this.$store.dispatch('startRun', {
-        numGames: this.numGames
+        numGames: this.numGames,
+        difficulty: this.difficulty
       })
     },
     selectHero (playerIdx: number, hero: Hero) {

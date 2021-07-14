@@ -12,8 +12,18 @@ import {Game} from "@/types/game";
 import {generateGameOption} from "@/lib/game";
 import {GameOption} from "@/types/gameoption";
 import {DowntimeAction} from "@/types/downtime";
-import {DF_BASE, DF_STEP_LARGE, DF_STEP_SMALL} from "@/consts/difficulty";
+import {DF_BASE, DF_STEP_LARGE, DF_STEP_SMALL, DF_STEP_MED} from "@/consts/difficulty";
 import {getHealAmount} from "@/lib/players";
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+// Make BootstrapVue available throughout your project
+Vue.use(BootstrapVue)
+// Optionally install the BootstrapVue icon components plugin
+Vue.use(IconsPlugin)
 
 Vue.use(Vuex)
 
@@ -50,6 +60,7 @@ export const options : Store = {
     upgradeOptions: {},
     upgradeSelections: {},
     gameOptions: [],
+    difficulty: 0,
   },
   mutations: {
     addExpansion (state: State, name: string) {
@@ -73,6 +84,9 @@ export const options : Store = {
     },
     numGames (state: State, numGames: number) {
       state.numGames = numGames
+    },
+    difficulty (state: State, difficulty: number) {
+      state.difficulty = difficulty
     },
     players (state: State, players: Player[]) {
       Vue.set(state, 'players', players)
@@ -156,8 +170,9 @@ export const options : Store = {
         commit('addExpansion', x.name)
       })
     },
-    startRun ({state, commit, dispatch} : ActionState, {numGames} : {numGames: number}) {
+    startRun ({state, commit, dispatch} : ActionState, {numGames, difficulty} : {numGames: number, difficulty: number}) {
       commit('numGames', numGames)
+      commit('difficulty', difficulty)
       dispatch('generateUpgradeOptions')
       commit('phase', 'upgrading')
     },
@@ -178,7 +193,7 @@ export const options : Store = {
 		// The options will have the villain you fight, any special challenges they
 		// have, as well as the upgrade categories you'll choose from
     generateGameOptions ({state, commit, dispatch}: ActionState) {
-      const targetDifficulty = DF_BASE + ((state.games.length + 1) * DF_STEP_LARGE)
+      const targetDifficulty = state.difficulty
       const options : GameOption[] = []
       const ids : string[] = []
 			const upgrades : UpgradeCategory[] = []
@@ -186,7 +201,7 @@ export const options : Store = {
         let attempts = 0
         let option : GameOption
         do {
-          option = generateGameOption(targetDifficulty - DF_STEP_LARGE, targetDifficulty + DF_STEP_LARGE, upgrades, state.expansions)
+          option = generateGameOption(targetDifficulty - DF_STEP_MED, targetDifficulty + DF_STEP_MED, upgrades, state.expansions)
 					option.game.rewardTypes.forEach((rt) => {
 						upgrades.push(rt)
 					})
@@ -214,6 +229,7 @@ export const options : Store = {
         return
       }
       state.activeGameIndex++
+      state.difficulty = state.difficulty + DF_STEP_LARGE
       commit('phase', 'downtime')
     },
     gameLost ({commit}: ActionState) {

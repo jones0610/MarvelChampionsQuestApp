@@ -1,7 +1,7 @@
 <template>
 <div class="scouting">
 	<h2 class="banger red">Choose Mission {{activeGameIndex+1}} of {{numGames}}</h2>
-  <p>Different missions give different rewards.</p>
+  <p>Different missions give different rewards. {{difficulty}}</p>
 	<div v-for="(option, idx) in gameOptions" :key="idx" class="game-option">
 		<Game :game="option.game" />
 <!--
@@ -22,7 +22,7 @@ export default Vue.extend({
 		Game: Game
 	},
 	computed: {
-		...mapState(['gameOptions', 'phase', 'activeGameIndex', 'numGames'])
+		...mapState(['gameOptions', 'phase', 'activeGameIndex', 'numGames', 'difficulty'])
 	},
 	methods: {
 		chooseMission (optionIndex: number) {
