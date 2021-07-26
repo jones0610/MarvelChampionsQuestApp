@@ -1,5 +1,5 @@
-import {CoreSet} from "@/consts/expansions";
-import {generateExhaustedCardInPlay, levelUpMessageIncrease} from "@/lib/upgrades";
+import {CoreSet, Venom} from "@/consts/expansions";
+import {generateExhaustedCardInPlay, levelUpMessageIncrease, generateAllyCard, generateUpgradeCard, generateCounterCardInPlay} from "@/lib/upgrades";
 import {Upgrade, UpgradeCategory} from "@/types/upgrade";
 
 export const Helicarrier = generateExhaustedCardInPlay({
@@ -91,4 +91,69 @@ export const KnowYourEnemy = {
 	category: 'General' as UpgradeCategory
 }
 
-export const Upgrades = [KnowYourEnemy, Helicarrier, AvengersMansion, StarkGadget, AlwaysPrepared]
+
+
+// Venom
+export const StarLord = generateAllyCard({
+	name: 'Star Lord',
+	card: 'Star Lord',
+	levels: [{
+		damage: 2,
+		exhausted: true,
+	}, {
+		damage: 1,
+		exhausted: true
+	}, {
+		damage: 0,
+		exhausted: false,
+	}],
+	requires: Venom.name,
+	requiresHero: '',
+	pronoun: 'him',
+	category: 'General',
+})
+
+export const SideHolster = generateUpgradeCard({
+	name: 'Side Holster',
+	requires: Venom.name,
+	card: 'Side Holster',
+	article: 'a',
+	category: "General",
+})
+
+export const PlasmaPistol = generateCounterCardInPlay({
+	name: 'Plasma Pistol',
+	card: 'Plasma Pistol',
+	article: '',
+	they: 'It',
+	pronoun: 'it',
+	requires: Venom.name,
+	category: 'General',
+	requiresHero: '',
+	extraCounters: {
+		1: 0,
+		2: 1,
+		3: 2,
+	}
+})
+
+export const CrewQuarters = generateExhaustedCardInPlay({
+	name: 'Crew Quarters',
+	card: 'Crew Quarters',
+	requires: Venom.name,
+	pronoun: 'it',
+	category: 'General',
+	article: 'an'
+})
+
+
+export const Upgrades = [
+	KnowYourEnemy,
+	Helicarrier,
+	AvengersMansion,
+	StarkGadget,
+	AlwaysPrepared,
+	StarLord,
+	SideHolster,
+	PlasmaPistol,
+	CrewQuarters,]
