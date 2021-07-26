@@ -135,6 +135,12 @@ export const RocketRaccoon : Hero = {
 	startingHP: 9,
 }
 
+export const Venom : Hero = {
+	name: 'Venom',
+	requires: 'Venom',
+	startingHP: 12,
+}
+
 export const HeroesMap : Record<string, Hero> = {
 	[BlackPanther.name]: BlackPanther,
 	[BlackWidow.name]: BlackWidow,
@@ -158,6 +164,7 @@ export const HeroesMap : Record<string, Hero> = {
 	[Drax.name]: Drax,
 	[Groot.name]: Groot,
 	[RocketRaccoon.name]: RocketRaccoon,
+	[Venom.name]: Venom,
 }
 
 export const HeroesList = Object.keys(HeroesMap).
