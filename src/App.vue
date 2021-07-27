@@ -46,6 +46,11 @@
             </div>
           </transition>
           <transition name="fade">
+            <div v-if="phase === 'discarding'">
+              <Discarding />
+            </div>
+          </transition>
+          <transition name="fade">
             <div v-if="phase === 'upgrading'" class="upgrading">
               <Upgrading />
             </div>
@@ -71,6 +76,7 @@ import Heroes from './components/Heroes.vue';
 import Downtime from './components/Downtime.vue';
 import Battling from './components/Battling.vue';
 import Upgrades from './components/Upgrades.vue';
+import Discarding from './components/Discarding.vue';
 
 // eslint-disable-next-line no-unused-vars
 import {Run} from "@/types/run";
@@ -116,6 +122,7 @@ export default Vue.extend({
     Scouting,
     Upgrading,
     Upgrades,
+    Discarding,
   },
   watch: {
     phase () {

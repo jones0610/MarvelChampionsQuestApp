@@ -4,7 +4,7 @@ import {Expansion} from "@/types/expansion";
 import {Upgrade, UpgradeCategory} from "@/types/upgrade";
 import {GameOption} from "@/types/gameoption";
 
-export type RunPhase = 'settings' | 'upgrading' | 'scouting' | 'battling' | 'defeat' | 'victory' | 'downtime'
+export type RunPhase = 'settings' | 'upgrading' | 'scouting' | 'battling' | 'defeat' | 'victory' | 'downtime' | 'discard'
 
 export type Run = {
 	started: Date

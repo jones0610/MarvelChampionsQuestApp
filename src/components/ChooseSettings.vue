@@ -8,8 +8,10 @@
 
     <div class="expansions">
       <h2 class="banger red">Choose Your Expansions</h2>
-      <div v-for="exp in allExpansions" :key="exp.name" @click="() => { _toggleExpansion(exp.name) }" class="panel expansion choice" :class="{active: expansionNames.indexOf(exp.name) >= 0}">
-        {{exp.name}}
+      <div class="columns">
+        <div v-for="exp in allExpansions" :key="exp.name" @click="() => { _toggleExpansion(exp.name) }" class="panel expansion choice" :class="{active: expansionNames.indexOf(exp.name) >= 0}">
+          {{exp.name}}
+        </div>
       </div>
     </div>
 
@@ -17,16 +19,18 @@
     <div class="players">
       <div v-for="(playerHero, idx) in playerSelections" :key="idx" class="player">
         <h4>Player {{idx+1}}</h4>
-        <div v-for="hero in heroes" class="panel choice" :class="{active: playerHero == hero.name, [hero.cssClass]: true}" :key="hero.name" @click="() => selectHero(idx, hero)">{{hero.name}}</div>
+        <div class="columns">
+          <div v-for="hero in heroes" class="panel choice" :class="{active: playerHero == hero.name, [hero.cssClass]: true}" :key="hero.name" @click="() => selectHero(idx, hero)">{{hero.name}}</div>
+        </div>
       </div>
     </div>
 
     <h2 class="banger green">Number of Games</h2>
-    <div class="players">
+    <div class="players input">
       <input type="number" v-model="numGames" />
     </div>
     <h2 class="banger green">Difficulty</h2>
-    <div class="players">
+    <div class="players input">
       <input type="number" v-model="difficulty" />
     </div>
     <button class="big-button" @click="startRun">
@@ -180,21 +184,30 @@ export default Vue.extend({
     margin-bottom: 5px;
     cursor: pointer;
     padding: 0.5rem 0.75rem;
+    display: inline-flex;
+    width: 100%;
+  }
+
+  .columns {
+    column-count: 2;
+  }
+
+  .columns div {
+    break-inside: avoid;
   }
 
   .players {
     display: flex
   }
 
-  .player {
-    width: 25%;
-    padding-right: 5px;
-    margin-bottom: 2em;
+  .players.input {
+    padding: 0 0 1rem;
   }
 
-  .player .panel.choice {
-    padding: 0.4rem 0;
-    text-align: center;
+  .player {
+    width: 50%;
+    padding-right: 1rem;
+    margin-bottom: 2em;
   }
 
   .player h4 {
@@ -210,4 +223,10 @@ export default Vue.extend({
     margin-bottom: 5px;
   }
 
+  .player .panel.choice {
+    padding: 0.4rem;
+    text-align: center;
+    width: 100%;
+    display: inline-flex;
+  }
 </style>

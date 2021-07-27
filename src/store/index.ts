@@ -111,6 +111,14 @@ export const options : Store = {
       upgrades.push(Object.assign({}, UpgradesMap[upgradeName]))
       Vue.set(state.players[playerIndex], 'upgrades', upgrades)
     },
+    removePlayerUpgrade (state: State, {playerIndex, upgradeName} : UpgradeSelectionPayload) {
+      let upgrades = state.players[playerIndex].upgrades || []
+      // Clone it so that the levels don't get messed up
+      upgrades = upgrades.filter((upgrade: Upgrade) => {
+        return upgradeName !== upgrade.name
+      })
+      Vue.set(state.players[playerIndex], 'upgrades', upgrades)
+    },
     levelUpUpgrade (state: State, {playerIndex, upgradeName} : UpgradeSelectionPayload) {
       let upgrades = state.players[playerIndex].upgrades
       upgrades = upgrades.map((upgrade: Upgrade) => {
@@ -181,6 +189,30 @@ export const options : Store = {
         const upgradeName = state.upgradeSelections[i]
         if (upgradeName) {
           commit('addPlayerUpgrade', {
+            playerIndex: i,
+            upgradeName
+          })
+        }
+      }
+      let maxUpgrades = 0
+      for (let i = 0; i < state.players.length; i++) {
+        if (state.players[i].upgrades.length > maxUpgrades) {
+          maxUpgrades = state.players[i].upgrades.length
+        }
+      }
+      if (maxUpgrades > 3) {
+        commit('clearUpgradeSelections')
+        commit('phase', 'discarding')
+      } else {
+        commit('phase', 'scouting')
+        dispatch('generateGameOptions')
+      }
+    },
+    confirmDiscards ({state, commit, dispatch}: ActionState) {
+      for (let i = 0; i < state.players.length; i++) {
+        const upgradeName = state.upgradeSelections[i]
+        if (upgradeName) {
+          commit('removePlayerUpgrade', {
             playerIndex: i,
             upgradeName
           })
