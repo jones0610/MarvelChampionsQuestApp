@@ -23,6 +23,7 @@ export const Quicksilver : Expansion = {name: 'Quicksilver'}
 export const StarLord : Expansion = {name: 'Star-Lord'}
 export const Gamora : Expansion = {name: 'Gamora'}
 export const Drax : Expansion = {name: 'Drax'}
+export const Venom : Expansion = {name: 'Venom'}
 
 export const ExpansionsMap : Record<string, Expansion> = {
 	// Expansions
@@ -48,7 +49,8 @@ export const ExpansionsMap : Record<string, Expansion> = {
 	[Quicksilver.name]: Quicksilver,
 	[StarLord.name]: StarLord,
 	[Gamora.name]: Gamora,
-	[Drax.name]: Drax
+	[Drax.name]: Drax,
+	[Venom.name]: Venom,
 }
 
 export const ExpansionsList = Object.keys(ExpansionsMap).map(key => ExpansionsMap[key]).sort((a,b) => {

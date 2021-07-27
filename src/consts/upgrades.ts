@@ -22,6 +22,7 @@ import {Upgrades as gamora} from "@/consts/upgrades/heroes/gamora";
 import {Upgrades as drax} from "@/consts/upgrades/heroes/drax";
 import {Upgrades as groot} from "@/consts/upgrades/heroes/groot";
 import {Upgrades as rocket_raccoon} from "@/consts/upgrades/heroes/rocket-raccoon";
+import {Upgrades as venom} from "@/consts/upgrades/heroes/venom";
 import {Upgrade, UpgradeCategory} from "@/types/upgrade";
 
 function addUpgrades (upgrades : Upgrade[]) {
@@ -56,6 +57,7 @@ addUpgrades(gamora)
 addUpgrades(drax)
 addUpgrades(groot)
 addUpgrades(rocket_raccoon)
+addUpgrades(venom)
 
 export const UpgradesList = Object.keys(UpgradesMap).map(key => {
 	return UpgradesMap[key]

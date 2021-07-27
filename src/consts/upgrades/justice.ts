@@ -1,5 +1,5 @@
-import {CoreSet} from "@/consts/expansions";
-import {generateCounterCardInPlay, generateUpgradeCard} from "@/lib/upgrades";
+import {CoreSet,Venom} from "@/consts/expansions";
+import {generateCounterCardInPlay, generateUpgradeCard, generateAllyCard} from "@/lib/upgrades";
 
 export const SurveillanceTeam = generateCounterCardInPlay({
 	name: 'Trusty Spies',
@@ -23,4 +23,46 @@ export const HeroicIntuition = generateUpgradeCard({
 	attached: true
 })
 
-export const Upgrades = [SurveillanceTeam, HeroicIntuition]
+
+// Venom
+export const JackFlag = generateAllyCard({
+	name: 'Jack Flag',
+	card: 'Jack Flag',
+	levels: [{
+		damage: 2,
+		exhausted: true,
+	}, {
+		damage: 1,
+		exhausted: true
+	}, {
+		damage: 0,
+		exhausted: false,
+	}],
+	requires: Venom.name,
+	requiresHero: '',
+	pronoun: 'him',
+	category: 'Justice',
+})
+
+export const SonicRifle = generateCounterCardInPlay({
+	name: 'Sonic Rifle',
+	card: 'Sonic Rifle',
+	article: '',
+	they: 'It',
+	pronoun: 'it',
+	requires: Venom.name,
+	category: 'Justice',
+	requiresHero: '',
+	extraCounters: {
+		1: 0,
+		2: 1,
+		3: 2,
+	}
+})
+
+export const Upgrades = [
+	SurveillanceTeam,
+	HeroicIntuition,
+	JackFlag,
+	SonicRifle,
+]
